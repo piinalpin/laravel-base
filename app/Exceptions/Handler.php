@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\AccessDeniedException;
 use App\Exceptions\BadCredentialsException;
 use App\Exceptions\DataNotFoundException;
 use App\Exceptions\DuplicateDataException;
@@ -59,6 +60,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AccessDeniedException) {
+            return AccessDeniedException::getResponse();
+        }
         if ($exception instanceof BadCredentialsException) {
             return BadCredentialsException::getResponse($exception->getMessage());
         }
