@@ -52,6 +52,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'access.admin' => \App\Http\Middleware\AdminAccess::class,
+        'access.ops' => \App\Http\Middleware\OpsAccess::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'basicAuth' => \App\Http\Middleware\BasicAuthorization::class,
