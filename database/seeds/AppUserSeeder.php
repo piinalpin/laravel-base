@@ -27,7 +27,7 @@ class AppUserSeeder extends Seeder
         	'created_at' => DB::raw('CURRENT_TIMESTAMP'),
         	'created_by' => 0,
         	'username' => 'maverick',
-            'full_name' => 'Alvinditya Saputra',
+            'full_name' => 'Maverick',
             'email' => 'maverick@test.com',
             'password' => Hash::make('password'),
             'enabled' => true,
