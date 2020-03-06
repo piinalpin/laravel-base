@@ -1,6 +1,6 @@
 ## About Laravel Base RestFul API
 
-Laravel is a web application framework with expressive, elegant syntax. this project is to assist in the development project on the laravel based on RestFul API.
+Laravel is a web application framework with expressive, elegant syntax. This base project is to assist in the development project on the laravel based on RestFul API.
 
 ## Documentation
 On going.
