@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\AccessDeniedException;
 use App\Exceptions\BadCredentialsException;
 use App\User;
 use Closure;
@@ -18,16 +19,16 @@ class BasicAuthorization
      */
     public function handle($request, Closure $next)
     {
-        $AUTH_USERNAME = 'kirito';
-        $AUTH_PASSWORD = 'alicization';
-
         header('Cache-Control: no-cache, must-revalidate, max-age=0');
-        $hasSuppliedCredentials = !(empty($_SERVER['HTTP_AUTHORIZATION']));
-        $basicAuth = base64_encode($AUTH_USERNAME.":".$AUTH_PASSWORD);
+
+        if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
+            throw new AccessDeniedException();
+        }
+
+        $basicAuth = base64_encode(env('AUTH_USERNAME').":".env('AUTH_PASSWORD'));
         $encode = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
 
         $isNotAuthenticated = (
-            !$hasSuppliedCredentials ||
             $encode != $basicAuth
         );
         if ($isNotAuthenticated) {
