@@ -4,6 +4,9 @@ namespace App\Item;
 
 use App\User;
 
+/**
+ * 
+ */
 class UserItem extends BaseItem
 {
 	public $username;

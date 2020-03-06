@@ -25,10 +25,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:APP_USER',
+            'email' => 'required|email',
             'username' => 'required|string|max:50',
             'password' => 'required_with:confirmPassword|same:confirmPassword',
-            'confirmPassword' => 'required'
+            'confirmPassword' => 'required',
+            'role' => 'required|in:'.config('constants.USER_ROLE_CHOICE')
         ];
     }
 
@@ -43,7 +44,8 @@ class UserRequest extends FormRequest
             'email.required' => 'email may not be null',
             'username.required' => 'username may not be null',
             'password.required' => 'password may not be null',
-            'password.same' => 'password and confirm password must be match'
+            'password.same' => 'password and confirm password must be match',
+            'role.in' => 'invalid role, available choice: '.implode(", ", config('constants.USER_ROLE'))
         ];
     }
 }
