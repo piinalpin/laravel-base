@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use App\Exceptions\BadCredentialsException;
+use App\Exceptions\DataNotFoundException;
+use App\Exceptions\DuplicateDataException;
 use App\Exceptions\UnauthorizeException;
+use App\Exceptions\UsernameIsExistsException;
 use App\Exceptions\ValidationErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -59,8 +62,17 @@ class Handler extends ExceptionHandler
         if ($exception instanceof BadCredentialsException) {
             return BadCredentialsException::getResponse($exception->getMessage());
         }
+        if ($exception instanceof DataNotFoundException) {
+            return DataNotFoundException::getResponse($exception->getMessage());
+        }
+        if ($exception instanceof DuplicateDataException) {
+            return DuplicateDataException::getResponse($exception->getMessage());
+        }
         if ($exception instanceof UnauthorizeException) {
             return UnauthorizeException::getResponse($exception->getMessage());
+        }
+        if ($exception instanceof UsernameIsExistsException) {
+            return UsernameIsExistsException::getResponse();
         }
         if ($exception instanceof ValidationException) {
             return ValidationErrorException::getResponse($exception);
