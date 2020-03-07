@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('updated_at')->nullable()->default(DB::raw('NULL on update CURRENT_TIMESTAMP'));
             $table->softDeletes();
             $table->string('username')->nullable(false);
-            $table->string('email')->unique()->nullable(false);
+            $table->string('email')->nullable(false);
             $table->string('password')->nullable(false);
             $table->string('full_name')->nullable(false);
             $table->boolean('enabled')->nullable(false)->default(true);

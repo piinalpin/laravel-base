@@ -26,7 +26,7 @@ class UserController extends Controller
 
         UserService::isExists($request->username);
 
-        $user = UserFactory::factory($request, null, $current->id, config('constants.FACTORY.CREATE'));
+        $user = UserFactory::factory($request, new User(), $current->id, config('constants.FACTORY.CREATE'));
         $user->password = UserService::hashPassword($user->password);
         $user = UserService::save($user);
         return Response::json($user, 201);
