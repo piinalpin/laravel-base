@@ -26,4 +26,13 @@ class Controller extends BaseController
     {
     	return Response::json(new TokenItem(JWTAuth::refresh()), 200);
     }
+
+    public function dashboard(Request $request)
+    {
+        $totalUser = User::where('deleted_at', null)->count();
+        $response = [
+            'totalUser' => $totalUser
+        ];
+        return Response::json($response, 200);
+    }
 }

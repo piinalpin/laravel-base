@@ -21,6 +21,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'cors'], function () {
 	Route::middleware('basicAuth')->post('/oauth/token', 'Controller@oauth');
 	Route::middleware('jwt.verify')->post('/oauth/token/refresh', 'Controller@refreshToken');
 
+	Route::middleware('jwt.verify')->get('/dashboard', 'Controller@dashboard');
+
 	Route::middleware('jwt.verify')->get('/user/me', 'UserController@me');
 	Route::middleware(['jwt.verify', 'access.admin'])->get('/user', 'UserController@getAll');
 	Route::middleware(['jwt.verify', 'access.admin'])->post('/user', 'UserController@create');

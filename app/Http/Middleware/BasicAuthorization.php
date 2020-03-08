@@ -32,13 +32,13 @@ class BasicAuthorization
             $encode != $basicAuth
         );
         if ($isNotAuthenticated) {
-            throw new BadCredentialsException();
+            throw new BadCredentialsException("Invalid authorization");
         }
 
         $user = User::where('username', request('username'))->first();
 
         if ($user == null) {
-            throw new BadCredentialsException();
+            throw new BadCredentialsException("username or password not match");
         }
 
         return $next($request);

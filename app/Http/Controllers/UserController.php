@@ -17,7 +17,12 @@ class UserController extends Controller
 {
     public function getAll()
     {
-        return Response::json(UserService::getAll(), 200);
+        $users = UserService::getAll();
+        $response = array();
+        foreach ($users as $user) {
+            $response[] = new UserItem($user);
+        }
+        return Response::json($response, 200);
     }
 
     public function create(UserRequest $request)
@@ -29,12 +34,12 @@ class UserController extends Controller
         $user = UserFactory::factory($request, new User(), $current->id, config('constants.FACTORY.CREATE'));
         $user->password = UserService::hashPassword($user->password);
         $user = UserService::save($user);
-        return Response::json($user, 201);
+        return Response::json(new UserItem($user), 201);
     }
 
     public function detail($id)
     {
-        return Response::json(UserService::getById($id), 200);
+        return Response::json(new UserItem(UserService::getById($id)), 200);
     }
 
     public function update(UserRequest $request, $id)
@@ -46,7 +51,7 @@ class UserController extends Controller
         $user = UserFactory::factory($request, $user, null, config('constants.FACTORY.UPDATE'));
         $user->password = UserService::hashPassword($user->password);
         $user = UserService::save($user);
-        return Response::json($user, 200);
+        return Response::json(new UserItem($user), 200);
     }
 
     public function delete($id)

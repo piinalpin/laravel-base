@@ -15,14 +15,14 @@ class TokenItem
 
 	public $token_type = 'bearer';
 
-	public $expures_in;
+	public $expires_in;
 
 	public $jti;
 	
 	public function __construct($token)
 	{
 		$this->access_token = $token;
-		$this->expures_in = auth()->factory()->getTTL() * 60;
+		$this->expires_in = auth()->factory()->getTTL() * 60;
 		$this->jti = JWTAuth::decode(new Token($token))['jti'];
 	}
 }
