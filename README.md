@@ -12,7 +12,8 @@ Laravel is a web application framework with expressive, elegant syntax. This bas
 - Custom Middleware
 - Soft Deletes Service
 - Custom Form Validation
-- Auto Refresh Token Every 1 Hour
+- Auto Refresh Token Every 1 Hour (Ajax request)
+- User Management
 
 ## Documentation
 1. Clone this project `https://github.com/piinalpin/laravel-base.git`.
