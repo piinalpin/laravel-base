@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-<section id="mySection">
 <div class="row">
     <div class="col-md-12 grid-margin">
       <div class="d-flex justify-content-between flex-wrap">
@@ -30,7 +29,6 @@
 	          <thead>
 	            <tr>
 	                <th>Name</th>
-	                <th>Email</th>
 	                <th>Username</th>
 	                <th>Role</th>
 	                <th>Created At</th>
@@ -87,7 +85,41 @@
         </div>
     </div>
 </div>
-</section>
+<div id="modalDetail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4>User Detail</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-4"><strong>Name</strong></div>
+                <div class="col-sm-1"><strong>:</strong></div>
+                <div class="col-sm-6" id="modalDetailName"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"><strong>Email</strong></div>
+                <div class="col-sm-1"><strong>:</strong></div>
+                <div class="col-sm-6" id="modalDetailEmail"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"><strong>Username</strong></div>
+                <div class="col-sm-1"><strong>:</strong></div>
+                <div class="col-sm-6" id="modalDetailUsername"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"><strong>Role</strong></div>
+                <div class="col-sm-1"><strong>:</strong></div>
+                <div class="col-sm-6" id="modalDetailRole"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('javascript')

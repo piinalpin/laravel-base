@@ -7,6 +7,70 @@ const StringUtils = {
     }
 };
 
+function createLink(text, colorBtn, iconObj, attr) {
+    if(colorBtn == undefined) colorBtn = BUTTON_DEFAULT;
+    if(attr == undefined || (typeof attr).toLowerCase() != "object") attr = {};
+    if(iconObj == undefined || (typeof iconObj).toLowerCase() != "object") iconObj = {};
+    var link = $("<a>");
+    link.addClass(colorBtn);
+    if((typeof text).toLowerCase() == "string") {
+        var span = $("<span>");
+        span.html(text);
+        text = span;
+    }
+    var keysAttr = Object.keys(attr);
+    if(keysAttr.length > 0) {
+        keysAttr.forEach(function (key) {
+            link.attr(key, attr[key]);
+        });
+    }
+    if(iconObj.hasOwnProperty("icon")) {
+        var icon = $("<i>");
+        icon.addClass(iconObj.icon);
+        if(iconObj.type == undefined) iconObj["type"] = "prev";
+        if(iconObj.type == "prev"){
+            link.append(icon, text);
+        }else{
+            link.append(text, icon);
+        }
+    }else{
+        link.append(text);
+    }
+    return link;
+}
+
+function createButton(text, colorBtn, iconObj, attr) {
+    if(colorBtn == undefined) colorBtn = BUTTON_DEFAULT;
+    if(attr == undefined || (typeof attr).toLowerCase() != "object") attr = {};
+    if(iconObj == undefined || (typeof iconObj).toLowerCase() != "object") iconObj = {};
+    var button = $("<button>");
+    button.addClass("btn " + colorBtn);
+    if((typeof text).toLowerCase() == "string") {
+        var span = $("<span>");
+        span.html(text);
+        text = span;
+    }
+    var keysAttr = Object.keys(attr);
+    if(keysAttr.length > 0) {
+        keysAttr.forEach(function (key) {
+            button.attr(key, attr[key]);
+        });
+    }
+    if(iconObj.hasOwnProperty("icon")) {
+        var icon = $("<i>");
+        icon.addClass(iconObj.icon);
+        if(iconObj.type == undefined) iconObj["type"] = "prev";
+        if(iconObj.type == "prev"){
+            button.append(icon, text);
+        }else{
+            button.append(text, icon);
+        }
+    }else{
+        button.append(text);
+    }
+    return button;
+}
+
 function clearNameInput(input) {
     var me = input;
     if(StringUtils.isNotBlank(me.attr("id"))) return me.attr("id").replace(/^(cb\-|txt\-|rb\-.*\-)/gm, "");

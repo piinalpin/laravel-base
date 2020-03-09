@@ -16,9 +16,9 @@
 <script src="{{ asset('/js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('/js/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('/js/axios.min.js') }}"></script>
-<script src="{{ asset('/jsmodule/constant.js') }}"></script>
-<script src="{{ asset('/jsmodule/function.js') }}"></script>
-<script src="{{ asset('/jsmodule/request.js') }}"></script>
+<script src="{{ asset('/jsmodule/utils/constant.js') }}"></script>
+<script src="{{ asset('/jsmodule/utils/function.js') }}"></script>
+<script src="{{ asset('/jsmodule/utils/request.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

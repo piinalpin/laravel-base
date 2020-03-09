@@ -25,19 +25,46 @@ let user = {
 				DATA_TABLE = TABLE.DataTable({
 					'data': data,
 					'columns': [
-						{ 'data': 'fullName' },
-						{ 'data': 'email' },
+						{ 
+							'data': 'fullName',
+							'render': function(data, type, row) {
+								const btnName = createButton(data, 'btn-link', null, { 
+									'id': 'btnDetail',
+									'data-toggle': 'modal',
+									'data-target': '#modalDetail',
+									'data-id': data
+								});
+								return btnName.prop('outerHTML');
+							}
+						},
 						{ 'data': 'username' },
 						{ 'data': 'role' },
 						{ 
 							'data': 'createdAt',
-							'render': function(data, type, row) {
+							'render': function(data, type, row, meta) {
 								return moment(data).format('MMMM Do YYYY, h:mm:ss a');
 							}
 						},
 						{
-							'render': function(data, type, row) {
-								return BUTTON_EDIT(row.id) + ' ' + BUTTON_DELETE(row.id);
+							'data': 'id',
+							'render': function(data, type, row, meta) {
+								const btnEdit = createButton(null, 'btn btn-warning btn-rounded btn-icon', 
+									{ 'icon': 'mdi mdi-lead-pencil' }, { 
+									'id': 'btnEdit',
+									'data-toggle': 'modal',
+									'data-target': '#myModal',
+									'data-id': data,
+									'style': 'padding: 0;'
+								});
+								const btnDelete = createButton(null, 'btn btn-danger btn-rounded btn-icon', 
+									{ 'icon': 'mdi mdi-delete' }, { 
+									'id': 'btnDelete',
+									'data-toggle': 'modal',
+									'data-target': '#myModal',
+									'data-id': data,
+									'style': 'padding: 0;'
+								});
+								return btnEdit.prop('outerHTML') + ' ' + btnDelete.prop('outerHTML');
 							},
 							'width': '8%'
 						}
@@ -85,7 +112,7 @@ TABLE.delegate('#btnEdit', 'click', function(e){
 	user.form.set(data);
 }).delegate('#btnDelete', 'click', function(e) {
 	e.preventDefault();
-	var data = getRowDataTable(DATA_TABLE, $(this));
+	const data = getRowDataTable(DATA_TABLE, $(this));
 	swal({
 		title: "Are you sure?",  
 		type: "warning",
@@ -109,6 +136,13 @@ TABLE.delegate('#btnEdit', 'click', function(e){
 			    )
 			}
 		})
+}).delegate('#btnDetail', 'click', function(e) {
+	e.preventDefault();
+	const data = getRowDataTable(DATA_TABLE, $(this));
+	$('#modalDetailName').text(data.fullName);
+	$('#modalDetailEmail').text(data.email);
+	$('#modalDetailUsername').text(data.username);
+	$('#modalDetailRole').text(data.role);
 });
 
 $('button#btnAdd').on('click', function(ev) {
