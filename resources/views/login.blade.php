@@ -63,7 +63,7 @@
   <script src="{{ asset('/js/hoverable-collapse.js') }}"></script>
   <script src="{{ asset('/js/template.js') }}"></script>
   <script src="{{ asset('/js/axios.min.js') }}"></script>
-  <script src="{{ asset('/jsmodule/constant.js') }}"></script>
+  <script src="{{ asset('/jsmodule/utils/constant.js') }}"></script>
 
   <script type="text/javascript">
     localStorage.removeItem('token');
@@ -80,18 +80,25 @@
       formData.append('username', username);
       formData.append('password', password);
 
-      axios.post(BASE_URL + '/oauth/token', formData, { headers: BASIC_AUTH_HEADERS })
+      const login = axios.post(BASE_URL + '/oauth/token', formData, { headers: BASIC_AUTH_HEADERS })
         .then((response) => {
           localStorage.setItem('token', response.data.access_token);
+          return true;
         }).catch((error) => {
           $('#loginAlert').show();
           $('#loginAlert').html(error.response.data.message);
+          return false;
         });
-      axios.get(BASE_URL + '/user/me', { headers: HEADERS })
-        .then((response) => {
-          localStorage.setItem('fullName', response.data.fullName);
-        });
-      window.location.href = "/dashboard";
+        
+      login.then((value) => {
+        if (value) {
+          axios.get(BASE_URL + '/user/me', { headers: HEADERS })
+            .then((response) => {
+              localStorage.setItem('fullName', response.data.fullName);
+              window.location.href = "/dashboard";
+            });
+        }
+      });
     });
   </script>
   <!-- endinject -->
