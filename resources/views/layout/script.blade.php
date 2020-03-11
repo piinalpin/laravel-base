@@ -24,6 +24,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
+	const BASE_URL = '{{ env("APP_URL") }}'
 	$('#userLoggedIn').html(localStorage.getItem('fullName'));
 	$('#logout').on('click', function() {
 		localStorage.clear();

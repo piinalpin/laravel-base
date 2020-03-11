@@ -63,14 +63,14 @@
   <script src="{{ asset('/js/hoverable-collapse.js') }}"></script>
   <script src="{{ asset('/js/template.js') }}"></script>
   <script src="{{ asset('/js/axios.min.js') }}"></script>
-  <script src="{{ asset('/jsmodule/utils/constant.js') }}"></script>
-
   <script type="text/javascript">
-    localStorage.removeItem('token');
+    const BASE_URL = '{{ env("APP_URL") }}';
+
+    localStorage.clear();
     $('#loginAlert').hide();
     $('#btnLogin').on('click', function () {
       const BASIC_AUTH_HEADERS = {
-        'Authorization': 'Basic ' + btoa(BASIC_AUTH_USERNAME + ":" + BASIC_AUTH_PASSWORD)
+        'Authorization': 'Basic ' + btoa('{{ env("AUTH_USERNAME") }}:{{ env("AUTH_PASSWORD") }}')
       };
 
       let username = $('#username').val();
@@ -83,22 +83,15 @@
       const login = axios.post(BASE_URL + '/oauth/token', formData, { headers: BASIC_AUTH_HEADERS })
         .then((response) => {
           localStorage.setItem('token', response.data.access_token);
-          return true;
-        }).catch((error) => {
-          $('#loginAlert').show();
-          $('#loginAlert').html(error.response.data.message);
-          return false;
-        });
-        
-      login.then((value) => {
-        if (value) {
-          axios.get(BASE_URL + '/user/me', { headers: HEADERS })
+          axios.get(BASE_URL + '/user/me', { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')} })
             .then((response) => {
               localStorage.setItem('fullName', response.data.fullName);
               window.location.href = "/dashboard";
             });
-        }
-      });
+        }).catch((error) => {
+          $('#loginAlert').show();
+          $('#loginAlert').html(error.response.data.message);
+        });
     });
   </script>
   <!-- endinject -->
