@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  web:
+    image: koperasi_web:latest
+    volumes:
+      - ./:/var/www
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+    links:
+      - app
+    networks:
+      - koperasi-network
+
+  app:
+    image: koperasi_app:latest
+    env_file: '.env.docker'
+    environment:
+      - "DB_HOST=172.17.0.1"
+      - "APP_URL=http://localhost:8080/api/v1"
+    volumes:
+      - ./:/var/www
+    restart: always
+    networks:
+      - koperasi-network
+
+networks:
+  koperasi-network:
+    external: true
