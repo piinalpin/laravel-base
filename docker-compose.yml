@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: koperasi_web:latest
+    image: laravel_web:latest
     volumes:
       - ./:/var/www
     restart: always
@@ -12,10 +12,10 @@ services:
     links:
       - app
     networks:
-      - koperasi-network
+      - my-network
 
   app:
-    image: koperasi_app:latest
+    image: laravel_app:latest
     env_file: '.env.docker'
     environment:
       - "DB_HOST=172.17.0.1"
@@ -24,8 +24,8 @@ services:
       - ./:/var/www
     restart: always
     networks:
-      - koperasi-network
+      - my-network
 
 networks:
-  koperasi-network:
+  my-network:
     external: true
