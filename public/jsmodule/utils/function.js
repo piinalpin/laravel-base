@@ -1,3 +1,37 @@
+const CONFIRM_DELETE = function(func, id) {
+    swal({
+        title: "Are you sure?",  
+        type: "warning",
+        confirmButtonText: "Confirm",
+        showCancelButton: true,
+        reverseButtons: true
+    })
+    .then((result) => {
+        if (result.value) {
+            swal(
+              'Success',
+              '',
+              'success'
+            )
+            func(id);
+        } else if (result.dismiss === 'cancel') {
+            swal(
+              'Cancelled',
+              '',
+              'error'
+            )
+        }
+    });
+}
+
+const SUCCESS = function() {
+    swal({
+        title: "Success",  
+        type: "success",
+        confirmButtonText: "OK",
+    })
+}
+
 const StringUtils = {
     isNotBlank : function (txt) {
         return txt != undefined && txt != null && txt.length > 0 && txt != "";
