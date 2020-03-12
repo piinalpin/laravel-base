@@ -1,9 +1,7 @@
 class Request {
 
-	static endpoint = '/user'
-
-	static all() {
-		const url = BASE_URL.concat(Request.endpoint);
+	static all(endpoint) {
+		const url = BASE_URL.concat(endpoint);
 		return axios.get(url, { headers: HEADERS })
 			.then((response) => {
 				return response.data;
@@ -13,8 +11,8 @@ class Request {
 			});
 	}
 
-	static detail(id) {
-		const url = BASE_URL.concat(Request.endpoint, '/', id)
+	static detail(endpoint, id) {
+		const url = BASE_URL.concat(endpoint, '/', id)
 		return axios.get(url, { headers: HEADERS })
 			.then((response) => {
 				return response.data;
@@ -24,8 +22,8 @@ class Request {
 			});
 	}
 
-	static create(data) {
-		const url = BASE_URL.concat(Request.endpoint)
+	static create(endpoint, data) {
+		const url = BASE_URL.concat(endpoint)
 		return axios.post(url, data, { headers: HEADERS })
 			.then((response) => {
 				return response.data;
@@ -35,8 +33,8 @@ class Request {
 			});
 	}
 
-	static update(data) {
-		const url = BASE_URL.concat(Request.endpoint, '/', data.id)
+	static update(endpoint, data) {
+		const url = BASE_URL.concat(endpoint, '/', data.id)
 		return axios.post(url, data, { headers: HEADERS })
 			.then((response) => {
 				return response.data;
@@ -46,8 +44,8 @@ class Request {
 			});
 	}
 
-	static delete(id) {
-		const url = BASE_URL.concat(Request.endpoint, '/', id)
+	static delete(endpoint, id) {
+		const url = BASE_URL.concat(endpoint, '/', id)
 		return axios.delete(url, { headers: HEADERS })
 			.then((response) => {
 				return response.data;

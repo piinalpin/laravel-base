@@ -2,6 +2,7 @@ const TABLE = $('#DataTable');
 let DATA_TABLE;
 
 let user = {
+	endpoint: '/user',
 	form: {
 		clear: function() {
 			$('#userForm').removeData('data');
@@ -21,7 +22,7 @@ let user = {
 	},
 	process: {
 		all: function() {
-			return Request.all().then((data) => {
+			return Request.all(user.endpoint).then((data) => {
 				DATA_TABLE = TABLE.DataTable({
 					'data': data,
 					'columns': [
@@ -74,7 +75,7 @@ let user = {
 			});
 		},
 		add: function(data) {
-			Request.create(data).then((res) => {
+			Request.create(user.endpoint, data).then((res) => {
 				console.log(res);
 				if (!('error' in res)) {
 					user.reload();
@@ -82,14 +83,14 @@ let user = {
 			});
 		},
 		update: function(data) {
-			Request.update(data).then((res) => {
+			Request.update(user.endpoint, data).then((res) => {
 				if (!('error' in res)) {
 					user.reload();
 				}
 			});
 		},
 		delete: function(id) {
-			Request.delete(id).then((res) => {
+			Request.delete(user.endpoint, id).then((res) => {
 				if (!('error' in res)) {
 					user.reload();
 				}
