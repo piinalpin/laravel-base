@@ -60,8 +60,6 @@ let user = {
 								const btnDelete = createButton(null, 'btn btn-danger btn-rounded btn-icon', 
 									{ 'icon': 'mdi mdi-delete' }, { 
 									'id': 'btnDelete',
-									'data-toggle': 'modal',
-									'data-target': '#myModal',
 									'data-id': data,
 									'style': 'padding: 0;'
 								});
@@ -76,8 +74,8 @@ let user = {
 		},
 		add: function(data) {
 			Request.create(user.endpoint, data).then((res) => {
-				console.log(res);
 				if (!('error' in res)) {
+					SUCCESS();
 					user.reload();
 				}
 			});
@@ -85,6 +83,7 @@ let user = {
 		update: function(data) {
 			Request.update(user.endpoint, data).then((res) => {
 				if (!('error' in res)) {
+					SUCCESS();
 					user.reload();
 				}
 			});
@@ -114,29 +113,7 @@ TABLE.delegate('#btnEdit', 'click', function(e){
 }).delegate('#btnDelete', 'click', function(e) {
 	e.preventDefault();
 	const data = getRowDataTable(DATA_TABLE, $(this));
-	swal({
-		title: "Are you sure?",  
-		type: "warning",
-		confirmButtonText: "Confirm",
-		showCancelButton: true,
-		reverseButtons: true
-    })
-    	.then((result) => {
-			if (result.value) {
-				swal(
-			      'Success',
-			      '',
-			      'success'
-			    )
-			    user.process.delete(data.id);
-			} else if (result.dismiss === 'cancel') {
-			    swal(
-			      'Cancelled',
-			      '',
-			      'error'
-			    )
-			}
-		})
+	CONFIRM_DELETE(user.process.delete, data.id);
 }).delegate('#btnDetail', 'click', function(e) {
 	e.preventDefault();
 	const data = getRowDataTable(DATA_TABLE, $(this));
