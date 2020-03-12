@@ -7,7 +7,7 @@ class Request {
 				return response.data;
 			}).catch((error) => {
 				toastr.error(error.response.data.message);
-				return error.response.data;
+				return;
 			});
 	}
 
@@ -18,7 +18,7 @@ class Request {
 				return response.data;
 			}).catch((error) => {
 				toastr.error(error.response.data.message);
-				return error.response.data;
+				return;
 			});
 	}
 
@@ -29,7 +29,7 @@ class Request {
 				return response.data;
 			}).catch((error) => {
 				toastr.error(error.response.data.message);
-				return error.response.data;
+				return;
 			});
 	}
 
@@ -40,7 +40,7 @@ class Request {
 				return response.data;
 			}).catch((error) => {
 				toastr.error(error.response.data.message);
-				return error.response.data;
+				return;
 			});
 	}
 
@@ -51,7 +51,7 @@ class Request {
 				return response.data;
 			}).catch((error) => {
 				toastr.error(error.response.data.message);
-				return error.response.data;
+				return;
 			});
 	}
 
