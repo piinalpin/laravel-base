@@ -1,0 +1,53 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Exceptions\DataNotFoundException;
+use App\Model\ClassModel;
+use App\Services\SoftDeletesService;
+
+class {{ class }} extends SoftDeletesService
+{
+    /**
+     * Get all data.
+     *
+     * @return array()
+     */
+    public static function getAll()
+    {
+        return ClassModel::where('deleted_at', null)->get();
+    }
+
+    /**
+     * Save object
+     * @return object
+     */
+    public static function save(ClassModel $obj)
+    {
+        $obj->save();
+        return $obj;
+    }
+
+    /**
+     * Get single data
+     * @return object
+     */
+    public static function getById($id)
+    {
+        $obj = ClassModel::where('id', $id)->where('deleted_at', null)->first();
+        if ($obj) {
+            throw new DataNotFoundException('obj record: not found');  
+        }
+        return $obj;
+    }
+
+    /**
+     * Delete data by object
+     * @return void
+     */
+    public static function delete(ClassModel $obj)
+    {
+        parent::softDelete($obj);
+    }
+
+}

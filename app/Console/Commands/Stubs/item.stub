@@ -1,0 +1,20 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Item\BaseItem;
+use App\Model\ClassName;
+
+class {{ class }} extends BaseItem
+{
+    /**
+     * Generate Item
+     *
+     * @return array()
+     */
+    public function __construct(ClassName $obj)
+    {
+        parent::__construct($obj);
+    }
+
+}

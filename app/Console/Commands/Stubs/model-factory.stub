@@ -1,0 +1,60 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Requests\ClassRequest;
+use App\Model\ClassModel;
+
+class {{ class }}
+{
+
+	static $request;
+
+	static $model;
+
+    static $userId;
+
+    /**
+     * Generate Item
+     *
+     * @return array()
+     */
+    public static function factory(ClassRequest $request, ClassModel $model, $userId, $type)
+    {
+        self::$request = $request;
+        self::$model = $model;
+        self::$userId = $userId;
+
+        if ($model == null) {
+            self::$model = new ClassModel();
+        } else {
+            self::$model = $model;
+        }
+
+        function create()
+        {
+            $model = {{ class }}::$model;
+            $model->created_by = {{ class }}::$userId;
+
+            {{ class }}::$model = $model;
+        	return update();
+        }
+
+        function update()
+        {
+            $model = {{ class }}::$model;
+            $request = {{ class }}::$request;
+
+            // Fill attribute
+        	return $model;
+        }
+
+        switch ($type) {
+			case config('constants.FACTORY.CREATE'):
+				return create();
+			case config('constants.FACTORY.UPDATE'):
+				return update();
+		}
+    }
+
+}
